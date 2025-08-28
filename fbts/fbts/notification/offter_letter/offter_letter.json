@@ -1,0 +1,31 @@
+{
+ "attach_print": 1,
+ "channel": "Email",
+ "creation": "2025-08-19 16:35:03.672950",
+ "days_in_advance": 0,
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "Job Offer",
+ "enabled": 1,
+ "event": "Submit",
+ "idx": 0,
+ "is_standard": 1,
+ "message": "<p style=\"margin-top:12px;\"><b>Dear {{ doc.applicant_name }}</b>,</p>\n\n<p style=\"margin-top:12px;\">We are happy to welcome you on-board at <b>{{ doc.company }}</b>. </p>\n\n<p style=\"margin-top:12px;\">We would like to introduce ourselves as HR Operations Team who will be always ready to serve you in all relevant HR Assistance.</p>\n\n<p style=\"margin-top:12px;\">We undertake certain activities of employee on-boarding process using online portal. Please find below access details and your login credentials for offer acceptance. </p>\n\n<table style=\"border:2px solid #333; border-collapse:collapse; margin:10px;\">\n  <tr>\n    <td style=\"border:1px solid #333; padding:10px;\">Site URL</td>\n    <td style=\"border:1px solid #333; padding:10px;\">https://fbts.flamingohrms.com/login</td>\n  </tr>\n  <tr>\n    <td style=\"border:1px solid #333; padding:10px;\">Username</td>\n    <td style=\"border:1px solid #333; padding:10px;\">{{doc.applicant_email}}</td>\n  </tr>\n  <tr>\n    <td style=\"border:1px solid #333; padding:10px;\">Password</td>\n    <td style=\"border:1px solid #333; padding:10px;\">fbts@123</td>\n  </tr>\n</table>\n\n<p style=\"margin-top:12px;\">The portal usage is easy and intuitive to use. We request you to login and complete updating your profile. Portal allows you to go through various company policies.</p>\n\n<p style=\"margin-top:12px;\">We have also attached company offer letter for your reference and we wish you best of luck for future assignments and a rewarding career at <b>{{ doc.company }}</b>.</p>\n\n<p style=\"margin-top:12px;\">For further assistance/any queries contact details are mentioned below for your ready reference. <b>8102472607</b></p>\n\n<p><b>Best Regards,</b></p>\n<p><b>Team HR</b></p>\n",
+ "message_type": "HTML",
+ "modified": "2025-08-24 20:08:27.020507",
+ "modified_by": "Administrator",
+ "module": "fbts",
+ "name": "Offter Letter",
+ "owner": "Administrator",
+ "print_format": "FI Job Offer",
+ "recipients": [
+  {
+   "receiver_by_document_field": "applicant_email"
+  }
+ ],
+ "send_system_notification": 0,
+ "send_to_all_assignees": 0,
+ "sender": "Nest HRMS",
+ "sender_email": "fbtshrms@gmail.com",
+ "subject": "Offer Letter from {{doc.company}} "
+}

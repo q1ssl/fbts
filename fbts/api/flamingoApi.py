@@ -92,6 +92,7 @@ def download_salary_slip(name: str):
     """
     if not name:
         frappe.throw(_("Salary Slip name is required."))
+    
 
     # Make sure the user has access to the document
     salary_slip = frappe.get_doc("Salary Slip", name)
@@ -118,3 +119,179 @@ def download_salary_slip(name: str):
         "content_type": frappe.local.response.type,
         "base64": frappe.safe_encode(frappe.local.response.filecontent, "base64"),
     }
+
+from frappe import _
+import frappe
+from datetime import datetime
+
+@frappe.whitelist(allow_guest=True)
+def get_employee_salary_slips(employee):
+    """
+    Get minimal salary slip data for an employee with formatted period
+    Args:
+        employee (str): Employee ID (required)
+    Returns:
+        list: Salary slips with only name, amounts, and formatted period
+    """
+    if not employee:
+        frappe.throw(_("Employee ID is required"))
+    
+    if not frappe.db.exists("Employee", employee):
+        frappe.throw(_("Employee not found"))
+    
+    fields = [
+        "name",
+        "gross_pay",
+        "total_deduction",
+        "net_pay",
+        "rounded_total",
+        "start_date"
+    ]
+    
+    salary_slips = frappe.get_all(
+        'Salary Slip',
+        fields=fields,
+        filters={'employee': employee},
+        order_by='start_date desc'
+    )
+    
+    # Transform results to only include what you need
+    result = []
+    for slip in salary_slips:
+        if slip.get('start_date'):
+            period = datetime.strptime(str(slip['start_date']), "%Y-%m-%d").strftime("%b %Y")
+            result.append({
+                "name": slip['name'],
+                "period": period,  # "Jan 2025"
+                "gross": slip['gross_pay'],
+                "deductions": slip['total_deduction'],
+                "net": slip['net_pay'] if slip.get('net_pay') else slip['rounded_total']
+            })
+    
+    return result
+
+
+
+
+import frappe
+from frappe import _
+
+@frappe.whitelist(allow_guest=True)
+def get_employees(name=None):
+    try:
+        if not name:
+            return []  # No name passed, don't return all employees
+
+        employees = frappe.db.get_all(
+            "Employee",
+            fields=["name", "employee_name", "image", "company", "date_of_birth", "gender"],
+            filters={"name": name}
+        )
+
+        return employees
+
+    except Exception as e:
+        frappe.log_error(frappe.get_traceback(), "get_employees API Error")
+        return {
+            "status": "error",
+            "message": str(e)
+        }
+
+
+
+
+@frappe.whitelist(allow_guest=True)
+def get_notifications(to_user):
+    return frappe.db.get_all(
+        "PWA Notification",
+        filters={"to_user": to_user},
+        fields=[
+            "to_user", "from_user", "message",
+            "reference_document_type", "reference_document_name", "read"
+        ]
+    )
+
+
+
+import frappe
+
+@frappe.whitelist(allow_guest=True)
+def chat(message, employee):
+    if not message:
+        frappe.throw("Message is required")
+    if not employee:
+        frappe.throw("Employee is required")
+
+    doc = frappe.get_doc({
+        "doctype": "Group Chat",
+        "message": message,
+        "employee": employee
+    })
+    doc.insert(ignore_permissions=True)
+    return {"name": doc.name}
+
+
+
+from datetime import timedelta
+import frappe
+from frappe.utils import getdate, format_time
+
+@frappe.whitelist(allow_guest=True)
+def group_chat():
+    messages = frappe.db.get_all(
+        "Group Chat",
+        fields=[
+            "employee",
+            "employee_name",
+            "message",
+            "creation"
+        ],
+        order_by="creation asc"  # chronological order like chat
+    )
+
+    today = getdate()
+    yesterday = today - timedelta(days=1)
+
+    grouped = []
+    last_date_label = None
+
+    for msg in messages:
+        msg_date = msg["creation"].date()
+
+        if msg_date == today:
+            date_label = "Today"
+        elif msg_date == yesterday:
+            date_label = "Yesterday"
+        else:
+            date_label = msg["creation"].strftime("%d %B %Y")
+
+        # Add date divider if it's a new date group
+        if date_label != last_date_label:
+            grouped.append({
+                "type": "date",
+                "label": date_label
+            })
+            last_date_label = date_label
+
+        # Add chat message
+        grouped.append({
+            "type": "message",
+            "employee": msg["employee"],
+            "employee_name": msg["employee_name"],
+            "message": msg["message"],
+            "time": format_time(msg["creation"])
+        })
+
+    return grouped
+
+
+
+@frappe.whitelist(allow_guest=True)
+def leave_status(employee):
+    leave_counts = frappe.db.get_all(
+        "Leave Application",
+        filters={"employee": employee},
+        fields=["status", "COUNT(status) as count"],
+        group_by="status"
+    )
+    return leave_counts

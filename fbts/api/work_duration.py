@@ -10,6 +10,11 @@ def get_last_10_attendance_records(employee):
     
     :param employee: Employee ID (e.g., "FI-00001")
     """
+    def format_date_human(dt):
+        day = dt.day
+        suffix = "th" if 11 <= day <= 13 else {1: "st", 2: "nd", 3: "rd"}.get(day % 10, "th")
+        return dt.strftime(f"%-d{suffix} %B %Y")
+
     try:
         if not employee:
             return {"status": "error", "message": "Employee ID is required"}
@@ -30,7 +35,7 @@ def get_last_10_attendance_records(employee):
 
         for entry in checkins:
             log_date = entry["log_time"].date()
-            date_key = log_date.strftime("%d-%m-%Y")
+            date_key = format_date_human(log_date)
 
             if date_key not in attendance:
                 if record_count == 10:

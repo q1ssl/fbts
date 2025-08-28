@@ -108,3 +108,30 @@ def get_last_10_attendance_records(employee=None):
     except Exception as e:
         frappe.log_error(f"Error in get_last_10_attendance_records: {str(e)}", "Attendance API")
         return {"status": "error", "message": str(e)}
+
+
+import frappe
+
+@frappe.whitelist(allow_guest=True)
+def get_emp_leave_list(employee: str):
+    if not employee:
+        frappe.throw("Parameter 'employee' is required.", exc=frappe.ValidationError)
+
+    return frappe.db.get_all(
+        "Leave Application",
+        fields=[
+            "name",
+            "employee",
+            "from_date",
+            "to_date",
+            "leave_type",
+            "description",
+            "total_leave_days",
+            "leave_approver",
+            "status",
+            "posting_date",
+        ],
+        filters={"employee": employee},
+        order_by="posting_date desc",
+        ignore_permissions=True,  # since you want guest
+    )
