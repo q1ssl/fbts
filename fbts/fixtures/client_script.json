@@ -1,1 +1,24 @@
-[]
+[
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Employee Checkin",
+  "enabled": 1,
+  "modified": "2025-08-30 00:06:34.472251",
+  "module": "fbts",
+  "name": "Employee Checkin",
+  "script": "frappe.ui.form.on('Employee Checkin', {\n    onload(frm) {\n        frappe.realtime.on('refresh_checkin_form', (data) => {\n            if (data.name === frm.doc.name) {\n                frm.reload_doc();  // Refresh only if it's the current doc\n            }\n        });\n    }\n});\n\n\n\n\n\n\n\n\n\n\n\n// frappe.ui.form.on('Employee Checkin', {\n//     after_save: function(frm) {\n//         frappe.call({\n//             method: \"fbts.api.regularise.apply_regularise_time\",\n//             type: \"POST\",\n//             args: {\n//                 name: frm.doc.name,\n//                 custom_status: frm.doc.custom_status\n//             },\n//             callback: function(r) {\n//                 if (!r.exc) {\n//                     frappe.msgprint(\"Status synced.\");\n//                     frm.reload_doc(); // Reload the form after API call\n//                 }\n//             }\n//         });\n//     }\n// });\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Job Offer",
+  "enabled": 1,
+  "modified": "2025-08-31 19:38:06.780083",
+  "module": "fbts",
+  "name": "Job Offer",
+  "script": "frappe.ui.form.on('Job Offer', {\n    on_submit: function(frm) {\n        if (frm.doc.custom_create_user == 1) {\n            frappe.call({\n                method: \"frappe.client.insert\",\n                args: {\n                    doc: {\n                        doctype: \"User\",\n                        email: frm.doc.applicant_email,\n                        first_name: frm.doc.applicant_name,\n                        enabled: 1,\n                        new_password: \"fbts@123\"\n                    }\n                },\n                callback: function(r) {\n                    if (!r.exc) {\n                        frappe.msgprint(__('User created: ' + r.message.name));\n                    }\n                }\n            });\n        }\n    },\n    custom_ctc: function(frm) {\n        amount_in_word(frm);\n    }\n});\n\n\nfunction amount_in_word(frm) {\n    if (frm.doc.custom_ctc) {\n        frappe.call({\n            method: \"fbts.amount_in_words.get_money_in_words\",\n            args: {\n                amount: frm.doc.custom_ctc\n            },\n            callback: function(r) {\n                if (r.message) {\n                    frm.set_value(\"custom_total_in_words_inr\", r.message);\n                }\n            }\n        });\n    } else {\n        frm.set_value(\"custom_total_in_words_inr\", \"\");\n    }\n}\n",
+  "view": "Form"
+ }
+]

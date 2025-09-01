@@ -1,0 +1,21 @@
+[
+ {
+  "allow_guest": 0,
+  "api_method": null,
+  "cron_format": null,
+  "disabled": 1,
+  "docstatus": 0,
+  "doctype": "Server Script",
+  "doctype_event": "After Save",
+  "enable_rate_limit": 0,
+  "event_frequency": "All",
+  "modified": "2025-08-31 19:28:42.013361",
+  "module": "fbts",
+  "name": "Job Offer",
+  "rate_limit_count": 5,
+  "rate_limit_seconds": 86400,
+  "reference_doctype": "Job Offer",
+  "script": "from frappe.utils import money_in_words\n\ndoc.custom_total_in_words_inr = \"\"\nif doc.custom_ctc:\n    doc.custom_total_in_words_inr = money_in_words(doc.custom_ctc)\n",
+  "script_type": "DocType Event"
+ }
+]
