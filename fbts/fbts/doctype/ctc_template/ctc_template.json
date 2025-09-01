@@ -1,0 +1,105 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:ctc_template",
+ "creation": "2025-09-01 23:28:53.569391",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "ctc_template",
+  "section_break_niej",
+  "earnings",
+  "section_break_iwvh",
+  "employer_contribution",
+  "section_break_fiwz",
+  "deductions",
+  "section_break_ebzz",
+  "ctc",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "ctc_template",
+   "fieldtype": "Data",
+   "label": "CTC Template",
+   "unique": 1
+  },
+  {
+   "fieldname": "section_break_niej",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "earnings",
+   "fieldtype": "Table",
+   "label": "Earnings",
+   "options": "Earnings Component"
+  },
+  {
+   "fieldname": "section_break_iwvh",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "employer_contribution",
+   "fieldtype": "Table",
+   "label": "Employer Contribution",
+   "options": "Contribution from Employer"
+  },
+  {
+   "fieldname": "section_break_fiwz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "deductions",
+   "fieldtype": "Table",
+   "label": "Deductions",
+   "options": "Deduction Component"
+  },
+  {
+   "fieldname": "section_break_ebzz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "ctc",
+   "fieldtype": "Currency",
+   "label": "CTC"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "CTC Template",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-09-01 23:36:45.016829",
+ "modified_by": "Administrator",
+ "module": "fbts",
+ "name": "CTC Template",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
