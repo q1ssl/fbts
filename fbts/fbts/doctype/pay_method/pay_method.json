@@ -1,0 +1,48 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:pay_method",
+ "creation": "2025-05-21 11:43:11.870215",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "pay_method"
+ ],
+ "fields": [
+  {
+   "fieldname": "pay_method",
+   "fieldtype": "Data",
+   "label": "Pay Method",
+   "unique": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-05-21 11:43:51.059522",
+ "modified_by": "Administrator",
+ "module": "fbts",
+ "name": "Pay Method",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "show_title_field_in_link": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "pay_method"
+}
