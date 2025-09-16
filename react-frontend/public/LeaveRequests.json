@@ -1,0 +1,429 @@
+{
+  "leaveRequests": [
+    {
+      "id": "HR-ARQ-25-07-001",
+      "employeeName": "Developer Daiyan",
+      "status": "Submitted",
+      "employeeId": "FI-00001",
+      "department": "Engineering",
+      "reason": "Sick Leave",
+      "requestType": "Sick Leave",
+      "fromDate": "2025-08-21",
+      "toDate": "2025-08-22",
+      "duration": "2 days",
+      "createdDate": "2025-08-20T09:30:00Z",
+      "priority": "normal",
+      "approvedBy": null,
+      "rejectedBy": null,
+      "comments": "Feeling unwell, need time to recover",
+      "attachments": []
+    },
+    {
+      "id": "HR-ARQ-25-07-002",
+      "employeeName": "Sarah Wilson",
+      "status": "Approved",
+      "employeeId": "FI-00002",
+      "department": "Marketing",
+      "reason": "Medical Appointment",
+      "requestType": "Casual Leave",
+      "fromDate": "2025-08-20",
+      "toDate": "2025-08-20",
+      "duration": "4 hours",
+      "createdDate": "2025-08-18T14:15:00Z",
+      "priority": "normal",
+      "approvedBy": "HR Manager",
+      "rejectedBy": null,
+      "comments": "Regular medical checkup scheduled",
+      "attachments": ["medical_appointment.pdf"]
+    },
+    {
+      "id": "HR-ARQ-25-07-003",
+      "employeeName": "John Smith",
+      "status": "Pending",
+      "employeeId": "FI-00003",
+      "department": "Sales",
+      "reason": "Personal Emergency",
+      "requestType": "Earned Leave",
+      "fromDate": "2025-08-21",
+      "toDate": "2025-08-21",
+      "duration": "1 day",
+      "createdDate": "2025-08-19T16:45:00Z",
+      "priority": "high",
+      "approvedBy": null,
+      "rejectedBy": null,
+      "comments": "Family emergency requires immediate attention",
+      "attachments": []
+    },
+    {
+      "id": "HR-ARQ-25-07-004",
+      "employeeName": "Emma Johnson",
+      "status": "Rejected",
+      "employeeId": "FI-00004",
+      "department": "HR",
+      "reason": "Vacation Request",
+      "requestType": "Privilege Leave",
+      "fromDate": "2025-08-19",
+      "toDate": "2025-08-25",
+      "duration": "7 days",
+      "createdDate": "2025-08-17T11:00:00Z",
+      "priority": "normal",
+      "approvedBy": null,
+      "rejectedBy": "Department Head",
+      "comments": "Request conflicts with important project deadline",
+      "attachments": ["vacation_itinerary.pdf"]
+    },
+    {
+      "id": "HR-ARQ-25-07-005",
+      "employeeName": "Michael Brown",
+      "status": "Submitted",
+      "employeeId": "FI-00005",
+      "department": "Finance",
+      "reason": "Family Event",
+      "requestType": "Compensatory Off",
+      "fromDate": "2025-08-21",
+      "toDate": "2025-08-23",
+      "duration": "3 days",
+      "createdDate": "2025-08-19T08:20:00Z",
+      "priority": "normal",
+      "approvedBy": null,
+      "rejectedBy": null,
+      "comments": "Wedding ceremony in family",
+      "attachments": ["wedding_invitation.jpg"]
+    },
+    {
+      "id": "HR-ARQ-25-07-006",
+      "employeeName": "Lisa Davis",
+      "status": "Approved",
+      "employeeId": "FI-00006",
+      "department": "Engineering",
+      "reason": "Maternity Leave",
+      "requestType": "Maternity Leave",
+      "fromDate": "2025-08-18",
+      "toDate": "2025-11-15",
+      "duration": "90 days",
+      "createdDate": "2025-07-15T10:30:00Z",
+      "priority": "high",
+      "approvedBy": "HR Manager",
+      "rejectedBy": null,
+      "comments": "Standard maternity leave as per company policy",
+      "attachments": ["medical_certificate.pdf", "maternity_form.pdf"]
+    },
+    {
+      "id": "HR-ARQ-25-07-007",
+      "employeeName": "Robert Garcia",
+      "status": "Pending",
+      "employeeId": "FI-00007",
+      "department": "Operations",
+      "reason": "Extended Leave",
+      "requestType": "Leave Without Pay",
+      "fromDate": "2025-08-20",
+      "toDate": "2025-08-24",
+      "duration": "5 days",
+      "createdDate": "2025-08-18T13:45:00Z",
+      "priority": "normal",
+      "approvedBy": null,
+      "rejectedBy": null,
+      "comments": "Personal matters require extended time off",
+      "attachments": []
+    },
+    {
+      "id": "HR-ARQ-25-07-008",
+      "employeeName": "Jennifer Lee",
+      "status": "Submitted",
+      "employeeId": "FI-00008",
+      "department": "Marketing",
+      "reason": "Personal Work",
+      "requestType": "Casual Leave",
+      "fromDate": "2025-08-21",
+      "toDate": "2025-08-22",
+      "duration": "2 days",
+      "createdDate": "2025-08-20T15:10:00Z",
+      "priority": "normal",
+      "approvedBy": null,
+      "rejectedBy": null,
+      "comments": "Need to handle some personal documentation work",
+      "attachments": []
+    },
+    {
+      "id": "HR-ARQ-25-07-009",
+      "employeeName": "David Chen",
+      "status": "Approved",
+      "employeeId": "FI-00009",
+      "department": "Engineering",
+      "reason": "Training Program",
+      "requestType": "Professional Development",
+      "fromDate": "2025-08-25",
+      "toDate": "2025-08-27",
+      "duration": "3 days",
+      "createdDate": "2025-08-15T12:00:00Z",
+      "priority": "normal",
+      "approvedBy": "Technical Lead",
+      "rejectedBy": null,
+      "comments": "Attending React Native advanced training conference",
+      "attachments": ["training_schedule.pdf", "conference_registration.pdf"]
+    },
+    {
+      "id": "HR-ARQ-25-07-010",
+      "employeeName": "Maria Rodriguez",
+      "status": "Submitted",
+      "employeeId": "FI-00010",
+      "department": "HR",
+      "reason": "Wedding Ceremony",
+      "requestType": "Personal Leave",
+      "fromDate": "2025-08-28",
+      "toDate": "2025-08-30",
+      "duration": "3 days",
+      "createdDate": "2025-08-21T09:45:00Z",
+      "priority": "normal",
+      "approvedBy": null,
+      "rejectedBy": null,
+      "comments": "Personal wedding ceremony and related festivities",
+      "attachments": ["wedding_card.jpg"]
+    },
+    {
+      "id": "HR-ARQ-25-07-011",
+      "employeeName": "Alex Thompson",
+      "status": "Approved",
+      "employeeId": "FI-00011",
+      "department": "Sales",
+      "reason": "Annual Vacation",
+      "requestType": "Earned Leave",
+      "fromDate": "2025-08-15",
+      "toDate": "2025-08-17",
+      "duration": "3 days",
+      "createdDate": "2025-08-10T14:30:00Z",
+      "priority": "normal",
+      "approvedBy": "Sales Manager",
+      "rejectedBy": null,
+      "comments": "Annual family vacation to mountains",
+      "attachments": ["travel_itinerary.pdf"]
+    },
+    {
+      "id": "HR-ARQ-25-07-012",
+      "employeeName": "Sophie Carter",
+      "status": "Rejected",
+      "employeeId": "FI-00012",
+      "department": "Finance",
+      "reason": "Personal Trip",
+      "requestType": "Casual Leave",
+      "fromDate": "2025-08-22",
+      "toDate": "2025-08-24",
+      "duration": "3 days",
+      "createdDate": "2025-08-20T11:15:00Z",
+      "priority": "low",
+      "approvedBy": null,
+      "rejectedBy": "Finance Head",
+      "comments": "Request denied due to month-end closing activities",
+      "attachments": []
+    }
+  ],
+  "analytics": {
+    "totalRequests": 12,
+    "statusCounts": {
+      "Submitted": 4,
+      "Approved": 4,
+      "Pending": 2,
+      "Rejected": 2
+    },
+    "departmentCounts": {
+      "Engineering": 3,
+      "Marketing": 2,
+      "Sales": 2,
+      "HR": 2,
+      "Finance": 2,
+      "Operations": 1
+    },
+    "leaveTypeCounts": {
+      "Sick Leave": 1,
+      "Casual Leave": 3,
+      "Earned Leave": 2,
+      "Privilege Leave": 1,
+      "Compensatory Off": 1,
+      "Maternity Leave": 1,
+      "Leave Without Pay": 1,
+      "Professional Development": 1,
+      "Personal Leave": 1
+    },
+    "priorityCounts": {
+      "high": 2,
+      "normal": 9,
+      "low": 1
+    },
+    "trends": {
+      "thisWeekRequests": 8,
+      "lastWeekRequests": 4,
+      "approvalRate": 33.33,
+      "rejectionRate": 16.67,
+      "pendingRate": 16.67,
+      "averageProcessingDays": 2.5,
+      "mostRequestedLeaveType": "Casual Leave",
+      "busiestDepartment": "Engineering"
+    },
+    "monthlyStats": {
+      "August2025": {
+        "totalRequests": 12,
+        "approved": 4,
+        "rejected": 2,
+        "pending": 2,
+        "submitted": 4
+      }
+    }
+  },
+  "leaveTypes": [
+    {
+      "id": "sick_leave",
+      "name": "Sick Leave",
+      "maxDaysPerYear": 12,
+      "requiresApproval": true,
+      "requiresDocuments": true,
+      "color": "#ef4444"
+    },
+    {
+      "id": "casual_leave",
+      "name": "Casual Leave",
+      "maxDaysPerYear": 10,
+      "requiresApproval": true,
+      "requiresDocuments": false,
+      "color": "#3b82f6"
+    },
+    {
+      "id": "earned_leave",
+      "name": "Earned Leave",
+      "maxDaysPerYear": 21,
+      "requiresApproval": true,
+      "requiresDocuments": false,
+      "color": "#10b981"
+    },
+    {
+      "id": "privilege_leave",
+      "name": "Privilege Leave",
+      "maxDaysPerYear": 15,
+      "requiresApproval": true,
+      "requiresDocuments": false,
+      "color": "#8b5cf6"
+    },
+    {
+      "id": "compensatory_off",
+      "name": "Compensatory Off",
+      "maxDaysPerYear": 12,
+      "requiresApproval": true,
+      "requiresDocuments": false,
+      "color": "#f59e0b"
+    },
+    {
+      "id": "maternity_leave",
+      "name": "Maternity Leave",
+      "maxDaysPerYear": 180,
+      "requiresApproval": true,
+      "requiresDocuments": true,
+      "color": "#ec4899"
+    },
+    {
+      "id": "leave_without_pay",
+      "name": "Leave Without Pay",
+      "maxDaysPerYear": 30,
+      "requiresApproval": true,
+      "requiresDocuments": true,
+      "color": "#6b7280"
+    },
+    {
+      "id": "professional_development",
+      "name": "Professional Development",
+      "maxDaysPerYear": 5,
+      "requiresApproval": true,
+      "requiresDocuments": true,
+      "color": "#14b8a6"
+    },
+    {
+      "id": "personal_leave",
+      "name": "Personal Leave",
+      "maxDaysPerYear": 7,
+      "requiresApproval": true,
+      "requiresDocuments": false,
+      "color": "#f97316"
+    }
+  ],
+  "departments": [
+    {
+      "id": "engineering",
+      "name": "Engineering",
+      "head": "Tech Lead",
+      "color": "#3b82f6"
+    },
+    {
+      "id": "marketing",
+      "name": "Marketing",
+      "head": "Marketing Manager",
+      "color": "#ec4899"
+    },
+    {
+      "id": "sales",
+      "name": "Sales",
+      "head": "Sales Manager",
+      "color": "#10b981"
+    },
+    {
+      "id": "hr",
+      "name": "HR",
+      "head": "HR Manager",
+      "color": "#8b5cf6"
+    },
+    {
+      "id": "finance",
+      "name": "Finance",
+      "head": "Finance Head",
+      "color": "#f59e0b"
+    },
+    {
+      "id": "operations",
+      "name": "Operations",
+      "head": "Operations Manager",
+      "color": "#14b8a6"
+    }
+  ],
+  "approvers": [
+    {
+      "id": "hr_manager",
+      "name": "HR Manager",
+      "email": "hr.manager@company.com",
+      "canApprove": ["Casual Leave", "Sick Leave", "Maternity Leave", "Personal Leave"]
+    },
+    {
+      "id": "tech_lead",
+      "name": "Technical Lead",
+      "email": "tech.lead@company.com",
+      "canApprove": ["Professional Development", "Earned Leave", "Compensatory Off"]
+    },
+    {
+      "id": "sales_manager",
+      "name": "Sales Manager",
+      "email": "sales.manager@company.com",
+      "canApprove": ["Earned Leave", "Casual Leave", "Compensatory Off"]
+    },
+    {
+      "id": "finance_head",
+      "name": "Finance Head",
+      "email": "finance.head@company.com",
+      "canApprove": ["Leave Without Pay", "Earned Leave", "Casual Leave"]
+    }
+  ],
+  "settings": {
+    "maxAdvanceDays": 30,
+    "minAdvanceHours": 24,
+    "autoApprovalLimit": 1,
+    "requireManagerApproval": true,
+    "allowPartialDays": true,
+    "workingDaysOnly": false,
+    "holidayCalendarEnabled": true
+  },
+  "metadata": {
+    "lastUpdated": "2025-08-22T10:30:00Z",
+    "version": "2.1",
+    "dataSource": "Leave Management System",
+    "totalPages": 1,
+    "recordsPerPage": 50,
+    "apiVersion": "v1",
+    "generatedBy": "Leave Management API",
+    "supportContact": "support@company.com"
+  }
+}

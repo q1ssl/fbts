@@ -1,0 +1,160 @@
+.expense-container {
+  max-width: 800px;
+  margin: 4rem auto;
+  padding: 2.5rem 3rem;
+  background-color: #f8f8f8;
+  border-radius: 12px;
+  box-shadow: 0 16px 32px rgba(214, 52, 127, 0.1);
+  font-family: 'DM Sans', sans-serif;
+  color: #4a235a;
+}
+
+.expense-container h2 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #d63384;
+  margin-bottom: 2rem;
+}
+
+.expense-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 1rem;
+  background: #fff;
+  padding: 1.8rem;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(255, 105, 180, 0.1);
+}
+
+.expense-form select,
+.expense-form input,
+.expense-form textarea {
+  padding: 0.5rem 0.5rem;
+  border-radius: 8px;
+  border: 1.5px solid;
+
+  font-size: 1rem;
+  transition: border 0.3s ease;
+}
+
+.expense-form select:focus,
+.expense-form input:focus,
+.expense-form textarea:focus {
+  border-color: #d63384;
+  outline: none;
+  background: #fff;
+}
+
+.expense-form button {
+  background-color: #d63384;
+  color: white;
+  font-weight: bold;
+  font-size: 1.05rem;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 16px rgba(214, 52, 127, 0.3);
+}
+
+.expense-form button:hover {
+  background-color: #b42a69;
+}
+
+.expense-filter {
+  margin-top: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.expense-filter label {
+  font-weight: 600;
+  color: #7a2e59;
+}
+
+.expense-filter select {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #f4c1d1;
+  background-color: #fff0f6;
+  font-size: 1rem;
+}
+
+.expense-list {
+  margin-top: 2rem;
+}
+
+.expense-card {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  border-left: 6px solid #d63384;
+  box-shadow: 0 8px 20px rgba(198, 39, 119, 0.08);
+  transition: transform 0.2s ease;
+}
+
+.expense-card:hover {
+  transform: translateY(-2px);
+}
+
+.expense-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.expense-header h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #b4005f;
+}
+
+.status {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
+}
+
+.status.pending {
+  background-color: #ff9800;
+}
+
+.status.approved {
+  background-color: #4caf50;
+}
+
+.status.rejected {
+  background-color: #f44336;
+}
+
+.expense-card p {
+  font-size: 0.95rem;
+  margin: 4px 0;
+  color: #444;
+}
+
+.expense-card a {
+  display: inline-block;
+  margin-top: 0.6rem;
+  color: #d63384;
+  font-weight: 600;
+  text-decoration: underline;
+  font-size: 0.9rem;
+}
+
+.no-expense {
+  text-align: center;
+  color: #999;
+  font-style: italic;
+  margin-top: 1rem;
+}
