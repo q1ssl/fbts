@@ -1,266 +1,249 @@
-// frappe.ui.form.on("Job Offer", {
-//     custom_ctc: function(frm) {
-//         amount_in_word(frm);
-//     }
-// });
+frappe.ui.form.on('Job Offer', {
+  after_save(frm) {
+    apply_role_restrictions(frm);
+    render_offer_preview(frm);     // preview only; no save
+    amount_in_word_safe(frm);
+  },
+  onload(frm) {
+    apply_role_restrictions(frm);
+    render_offer_preview(frm);     // preview only; no save
+    amount_in_word_safe(frm);
+  },
+  refresh(frm) {
+    apply_role_restrictions(frm);
+    render_offer_preview(frm);     // preview only; no save (prevents dirty on refresh)
+    amount_in_word_safe(frm);
+  },
 
-// function amount_in_word(frm) {
-//     if (frm.doc.custom_ctc) {
-//         frappe.call({
-//             method: "fbts.amount_in_words.get_money_in_words",
-//             args: {
-//                 amount: frm.doc.custom_ctc
-//             },
-//             callback: function(r) {
-//                 if (r.message) {
-//                     frm.set_value("custom_total_in_words_inr", r.message);
-//                 }
-//             }
-//         });
-//     } else {
-//         frm.set_value("custom_total_in_words_inr", "");
-//     }
-// }
+  // When user edits fields, recompute & SAVE only if changed
+  offer_date(frm) { build_offer_letter_if_changed(frm); },
+  company(frm) { build_offer_letter_if_changed(frm); },
+  designation(frm) { build_offer_letter_if_changed(frm); },
+  custom_joining_date(frm) { build_offer_letter_if_changed(frm); },
+  grade(frm) { build_offer_letter_if_changed(frm); },
+  custom_total_amount_inr(frm) { build_offer_letter_if_changed(frm); },
+  custom_posting_location(frm) { build_offer_letter_if_changed(frm); },
+  custom_reporting_manager(frm) { build_offer_letter_if_changed(frm); },
+  earnings_add(frm) { build_offer_letter_if_changed(frm); },
+  earnings_remove(frm) { build_offer_letter_if_changed(frm); },
+  deductions_add(frm) { build_offer_letter_if_changed(frm); },
+  deductions_remove(frm) { build_offer_letter_if_changed(frm); },
 
+  // Recompute amount-in-words when base or offered CTC changes
+  base(frm) { amount_in_word_safe(frm); build_offer_letter_if_changed(frm); },
+  custom_offered_ctc(frm) { amount_in_word_safe(frm); build_offer_letter_if_changed(frm); },
+});
 
-// Client Script: Job Offer
-// - Fill earnings & deductions from Salary Structure
-// - Evaluate formulas like "base*0.5", "B*0.5", "B-CA-EA", "PF*1"
-// - Treat 0 as blank so formulas will overwrite "₹ 0.00" rows
-// - Only compute if amount is blank (undefined/null/""/0)
+/* ---------------- core builders ---------------- */
 
-// (() => {
-//   const API_METHOD = "fbts.salary_str.get_salary_structure_components";
-//   const TABLES = { earnings: "earnings", deductions: "deductions" };
-//   const PARENT_BASE_FIELD = "base";
+function compute_ctc_rows_and_totals(d, currency) {
+  const fmtMoney = (n) => frappe.format(n || 0, { fieldtype: "Currency" }, { currency });
 
-//   // ---------- Safe number helpers (no dependency on frappe.flt/cint) ----------
-//   function toFloat(v, precision = null) {
-//     if (v === undefined || v === null) return 0;
-//     // handle strings like "1,00,000.00" or with currency symbols in UI (defensive)
-//     const s = String(v).replace(/[^\d.\-]/g, "");
-//     let n = parseFloat(s);
-//     if (isNaN(n)) n = 0;
-//     if (precision === null) return n;
-//     const m = Math.pow(10, precision);
-//     return Math.round(n * m) / m;
-//   }
-//   function toInt(v) {
-//     const n = parseInt(v, 10);
-//     return isNaN(n) ? 0 : n;
-//   }
+  let A_m = 0, B_m = 0, C_m = 0;
+  let rows_html = "";
 
-//   // Allow typical math symbols and identifiers
-//   const SAFE_EXPR = /^[0-9+\-*/()., _a-zA-Z<>!=&|?:%]+$/;
+  // A: Earnings included in total
+  (d.earnings || []).forEach(r => {
+    if ((r.do_not_include_in_total || 0) != 1) {
+      A_m += (r.amount || 0);
+      rows_html += `<tr><td>${r.salary_component || ""}</td><td class="r">${fmtMoney(r.amount)}</td><td class="r">${fmtMoney((r.amount||0)*12)}</td></tr>`;
+    }
+  });
+  rows_html += `<tr class="section-a"><td><b>Total Gross Pay (A)</b></td><td class="r"><b>${fmtMoney(A_m)}</b></td><td class="r"><b>${fmtMoney(A_m*12)}</b></td></tr>`;
 
-//   // Build evaluation context from parent and already-known child amounts
-//   function build_context(frm) {
-//     const ctx = { Math, base: toFloat(frm.doc[PARENT_BASE_FIELD]) };
+  // B: Employer contributions (earnings/deductions flagged do_not_include_in_total == 1)
+  (d.earnings || []).forEach(r => {
+    if ((r.do_not_include_in_total || 0) == 1) {
+      B_m += (r.amount || 0);
+      rows_html += `<tr><td>${r.salary_component || ""}</td><td class="r">${fmtMoney(r.amount)}</td><td class="r">${fmtMoney((r.amount||0)*12)}</td></tr>`;
+    }
+  });
+  (d.deductions || []).forEach(r => {
+    if ((r.do_not_include_in_total || 0) == 1) {
+      B_m += (r.amount || 0);
+      rows_html += `<tr><td>${r.salary_component || ""}</td><td class="r">${fmtMoney(r.amount)}</td><td class="r">${fmtMoney((r.amount||0)*12)}</td></tr>`;
+    }
+  });
+  rows_html += `<tr class="section-b"><td><b>Total Employer Contribution (B)</b></td><td class="r"><b>${fmtMoney(B_m)}</b></td><td class="r"><b>${fmtMoney(B_m*12)}</b></td></tr>`;
 
-//     [TABLES.earnings, TABLES.deductions].forEach((table) => {
-//       (frm.doc[table] || []).forEach((row) => {
-//         if (row.abbr) ctx[row.abbr] = toFloat(row.amount);
-//       });
-//     });
+  // C: Deductions included in total
+  (d.deductions || []).forEach(r => {
+    if ((r.do_not_include_in_total || 0) != 1) {
+      C_m += (r.amount || 0);
+      rows_html += `<tr><td>${r.salary_component || ""}</td><td class="r">${fmtMoney(r.amount)}</td><td class="r">${fmtMoney((r.amount||0)*12)}</td></tr>`;
+    }
+  });
+  rows_html += `<tr class="section-c"><td><b>Total Deductions (C)</b></td><td class="r"><b>${fmtMoney(C_m)}</b></td><td class="r"><b>${fmtMoney(C_m*12)}</b></td></tr>`;
 
-//     return ctx;
-//   }
+  const D_m = A_m - C_m; // Net Take Home
+  const E_m = A_m + B_m; // CTC Monthly
 
-//   // Evaluate a formula string using ctx; resolve ABBR tokens to ctx["ABBR"]
-//   function evaluate_formula(expr, ctx) {
-//     if (!expr || typeof expr !== "string") return null;
-//     // quick guard
-//     if (!SAFE_EXPR.test(expr)) {
-//       throw new Error("Formula contains unsupported characters.");
-//     }
+  rows_html += `<tr class="net"><td><b>Net Take Home (D=A−C)</b></td><td class="r"><b>${fmtMoney(D_m)}</b></td><td class="r"><b>${fmtMoney(D_m*12)}</b></td></tr>`;
+  rows_html += `<tr class="ctc"><td><b>CTC (E=A+B)</b></td><td class="r"><b>${fmtMoney(E_m)}</b></td><td class="r"><b>${fmtMoney(E_m*12)}</b></td></tr>`;
 
-//     // Replace tokens with ctx lookups to avoid accidental globals
-//     // Note: use word boundaries so PF doesn't match inside PFE
-//     const tokens = Object.keys(ctx).filter((k) => k !== "Math");
-//     for (const key of tokens) {
-//       const re = new RegExp(`\\b${key}\\b`, "g");
-//       expr = expr.replace(re, `ctx["${key}"]`);
-//     }
+  return { rows_html, A_m, B_m, C_m, D_m, E_m };
+}
 
-//     // eslint-disable-next-line no-new-func
-//     const fn = new Function("ctx", "with (ctx) { return (" + expr + "); }");
-//     return fn(ctx);
-//   }
+function build_letter_html(d, currency) {
+  const fmtMoney = (n) => frappe.format(n || 0, { fieldtype: "Currency" }, { currency });
+  const fmtDate = (v) => v ? frappe.datetime.str_to_user(v) : "";
 
-//   // Compute a single row ONLY if its amount is blank (undefined/null/""/0)
-//   function compute_row_if_blank(frm, row, ctx) {
-//     const isBlankAmount =
-//       row.amount === undefined || row.amount === null || row.amount === "" || row.amount === 0;
+  // --- Annual CTC calculation (rule: use custom_offered_ctc if > base; else base) ---
+  const toNum = (v) => {
+    if (v === undefined || v === null) return 0;
+    const s = String(v).replace(/[^\d.\-]/g, "");
+    const n = parseFloat(s);
+    return isNaN(n) ? 0 : n;
+  };
+  const baseMonthly = toNum(d.base);
+  const offeredMonthly = toNum(d.custom_offered_ctc);
+  const monthly = offeredMonthly > baseMonthly ? offeredMonthly : baseMonthly;
+  const annualCTC = (monthly * 12) || 0;
 
-//     if (!isBlankAmount) return false;
-//     if (!row.formula || !String(row.formula).trim()) return false;
+  // CTC table for annexure
+  const { rows_html } = compute_ctc_rows_and_totals(d, currency);
 
-//     try {
-//       const raw = evaluate_formula(String(row.formula).trim(), ctx);
-//       const num = toFloat(raw, 2);
-//       row.amount = isNaN(num) ? 0 : num;
+  return `
+${fmtDate(d.offer_date)}
 
-//       // update ctx so dependent formulas in the same pass or next pass can use this
-//       if (row.abbr) ctx[row.abbr] = row.amount;
-//       return true;
-//     } catch (err) {
-//       console.warn("Formula evaluation failed:", row, err);
-//       frappe.show_alert({
-//         message: `Could not evaluate formula for ${row.abbr || row.salary_component || "row"}.`,
-//         indicator: "orange",
-//       });
-//       return false;
-//     }
-//   }
+To,
+${d.applicant_name || ""}
+${d.designation || ""}
+${d.custom_posting_location || "Mumbai"},
+Borivali-400092
 
-//   // Run multiple passes to satisfy dependencies like B -> CA -> EA -> SA
-//   function recompute_all_blank_amounts(frm) {
-//     let ctx = build_context(frm);
+Subject: Offer Of Employment
 
-//     // Up to 5 passes to resolve chains; stops early if nothing changes in a pass
-//     for (let pass = 0; pass < 5; pass++) {
-//       let changed = false;
+On behalf of ${d.company || ""}, we are delighted to extend an offer of employment to you.
+Please find below a summary of the terms and conditions for your anticipated employment with us:
 
-//       [TABLES.earnings, TABLES.deductions].forEach((table) => {
-//         (frm.doc[table] || []).forEach((row) => {
-//           // compute only if blank; PF/PFE/PT, etc. will cascade
-//           const did = compute_row_if_blank(frm, row, ctx);
-//           if (did) changed = true;
-//         });
-//       });
+Designation: ${d.designation || ""}
+Grade: ${d.grade || d.custom_grade || ""}
+Reporting: You will be reporting to ${d.custom_reporting_manager || d.designation || ""}
+Posting: ${d.custom_posting_location || ""}
 
-//       if (!changed) break;
-//       ctx = build_context(frm); // refresh context with any new values
-//     }
+Remuneration: Your Annual CTC will be  ${fmtMoney(annualCTC)} ${d.custom_total_amount_inr ? `(${d.custom_total_amount_inr})` : ""}
 
-//     frm.refresh_fields([TABLES.earnings, TABLES.deductions]);
-//   }
+The Company reserves the right to re-designate or revise your position or work description at any time, with written notice.
 
-//   // ----------------- Server payload → child rows -----------------
-//   const FIELD_MAP = (row) => ({
-//     salary_component: row.salary_component,
-//     abbr: row.abbr,
-//     amount: row.amount, // may be 0/blank; we'll compute
-//     default_amount: row.default_amount,
-//     additional_amount: row.additional_amount,
-//     amount_based_on_formula: row.amount_based_on_formula,
-//     formula: row.formula, // string like "base*0.5" or "B-CA-EA"
-//     condition: row.condition,
-//     depends_on_payment_days: row.depends_on_payment_days,
-//     is_tax_applicable: row.is_tax_applicable,
-//     is_flexible_benefit: row.is_flexible_benefit,
-//     variable_based_on_taxable_salary: row.variable_based_on_taxable_salary,
-//     statistical_component: row.statistical_component,
-//     do_not_include_in_total: row.do_not_include_in_total,
-//     do_not_include_in_accounts: row.do_not_include_in_accounts,
-//     deduct_full_tax_on_selected_payroll_date: row.deduct_full_tax_on_selected_payroll_date,
-//     tax_on_additional_salary: row.tax_on_additional_salary,
-//     tax_on_flexible_benefit: row.tax_on_flexible_benefit,
-//     year_to_date: row.year_to_date,
-//   });
+If you accept this offer, your start date will be ${fmtDate(d.custom_joining_date)} or another mutually agreed-upon date.
 
-//   function fill_child_table(frm, tablefield, rows) {
-//     frm.clear_table(tablefield);
-//     (rows || []).forEach((r) => {
-//       const child = frm.add_child(tablefield);
-//       Object.assign(child, FIELD_MAP(r));
-//     });
-//     frm.refresh_field(tablefield);
-//   }
+Please note that this offer letter is valid for 3 days from the date of release. If not accepted within this timeframe, the offer will be considered null and void.
 
-//   async function apply_salary_structure(frm, { overwrite = true } = {}) {
-//     const structure = frm.doc.salary_structure;
-//     if (!structure) return;
+The offer of employment is contingent upon satisfactory references. A formal Letter of Appointment will be issued on your joining date.
 
-//     try {
-//       frappe.show_progress("Loading", 30, 100, "Fetching Salary Structure…");
-//       const { message } = await frappe.call({ method: API_METHOD, args: { structure } });
+We wish you all the best and look forward to welcoming you to the ${d.company || ""} Group.
 
-//       if (!message) {
-//         frappe.msgprint({
-//           title: "No Data",
-//           message: "No components returned for the selected Salary Structure.",
-//           indicator: "orange",
-//         });
-//         return;
-//       }
+For ${d.company || ""},
 
-//       // Optional meta assigns
-//       if (message.meta) {
-//         if (frm.fields_dict.currency && message.meta.currency) {
-//           frm.set_value("currency", message.meta.currency);
-//         }
-//         if (frm.fields_dict.payroll_frequency && message.meta.payroll_frequency) {
-//           frm.set_value("payroll_frequency", message.meta.payroll_frequency);
-//         }
-//       }
+${d.custom_reporting_manager || ""}
+Group Chief Human Resource Officer
 
-//       if (overwrite) {
-//         fill_child_table(frm, TABLES.earnings, message.earnings);
-//         fill_child_table(frm, TABLES.deductions, message.deductions);
-//       } else {
-//         (message.earnings || []).forEach((r) => {
-//           const child = frm.add_child(TABLES.earnings);
-//           Object.assign(child, FIELD_MAP(r));
-//         });
-//         (message.deductions || []).forEach((r) => {
-//           const child = frm.add_child(TABLES.deductions);
-//           Object.assign(child, FIELD_MAP(r));
-//         });
-//         frm.refresh_fields([TABLES.earnings, TABLES.deductions]);
-//       }
+<hr>
+<b>Annexure 1: CTC Breakup</b>
+<table border="1" cellspacing="0" cellpadding="4" width="100%">
+  <tr style="background:#eee;font-weight:bold">
+    <th>Components</th>
+    <th>Monthly</th>
+    <th>Annually</th>
+  </tr>
+  ${rows_html}
+</table>
+`.trim();
+}
 
-//       // Now compute all amounts that are blank/0 using formulas
-//       recompute_all_blank_amounts(frm);
+/* ---------------- preview vs save ---------------- */
 
-//       frappe.show_progress("Loading", 100, 100, "Done");
-//     } catch (e) {
-//       console.error(e);
-//       frappe.msgprint({
-//         title: "Failed",
-//         message: e?.message || "Could not load components from Salary Structure.",
-//         indicator: "red",
-//       });
-//     } finally {
-//       frappe.hide_progress();
-//     }
-//   }
+// RENDER ONLY (no save) — call this in onload/refresh
+function render_offer_preview(frm) {
+  if (!frm.fields_dict.custom_letter_of_job_offer) return;
 
-//   // ----------------- Form events -----------------
-//   frappe.ui.form.on("Job Offer", {
-//     salary_structure: function (frm) {
-//       if (frm.doc.salary_structure) {
-//         apply_salary_structure(frm, { overwrite: true });
-//       } else {
-//         frm.clear_table(TABLES.earnings);
-//         frm.clear_table(TABLES.deductions);
-//         frm.refresh_fields([TABLES.earnings, TABLES.deductions]);
-//       }
-//     },
+  const d = frm.doc || {};
+  const currency = d.currency || "INR";
+  const html = build_letter_html(d, currency);
 
-//     // If Base changes, recompute rows that are blank/0
-//     [PARENT_BASE_FIELD]: function (frm) {
-//       recompute_all_blank_amounts(frm);
-//     },
+  const f = frm.fields_dict.custom_letter_of_job_offer;
+  // If it's an HTML/Text Editor, write directly to wrapper to avoid marking doc dirty
+  if (f.df.fieldtype === "HTML" && f.$wrapper) {
+    f.$wrapper.html(`<div class="offer-preview" style="white-space:pre-wrap">${html}</div>`);
+  } else if (f.df.fieldtype === "Text Editor" && f.$wrapper) {
+    // Quill editor exists – show read-only preview area above it to avoid editing doc
+    let $prev = f.$wrapper.find(".offer-preview");
+    if (!$prev.length) {
+      f.$wrapper.prepend('<div class="offer-preview" style="white-space:pre-wrap;margin-bottom:8px;"></div>');
+      $prev = f.$wrapper.find(".offer-preview");
+    }
+    $prev.html(html);
+  } else {
+    // Fallback: do NOT set_value on refresh to avoid dirty flag
+  }
+}
 
-//     refresh: function (frm) {
-//       frm.add_custom_button("Fill from Salary Structure", () =>
-//         apply_salary_structure(frm, { overwrite: true })
-//       );
-//       frm.add_custom_button("Append from Salary Structure", () =>
-//         apply_salary_structure(frm, { overwrite: false })
-//       );
+// SAVE ONLY IF CHANGED — call this on field edits, not on refresh
+function build_offer_letter_if_changed(frm) {
+  if (!frm.fields_dict.custom_letter_of_job_offer) return;
+  const d = frm.doc || {};
+  const currency = d.currency || "INR";
+  const new_html = build_letter_html(d, currency);
+  const old_val = (frm.doc.custom_letter_of_job_offer || "").trim();
 
-//       if (!frm.doc.salary_structure) {
-//         frm.dashboard.clear_headline();
-//         frm.dashboard.set_headline(
-//           `<span class="text-muted">Select a Salary Structure to populate earnings & deductions.</span>`
-//         );
-//       }
+  if (old_val !== new_html) {
+    frm.set_value('custom_letter_of_job_offer', new_html);
+  }
+  // Update preview too so user sees latest even if field type isn't HTML
+  render_offer_preview(frm);
+}
 
-//       // Also recompute on refresh to catch any rows that are still 0
-//       // (useful after importing / scripting)
-//       recompute_all_blank_amounts(frm);
-//     },
-//   });
-// })();
+/* ---------------- other helpers ---------------- */
+
+// Amount-in-words for Annual CTC based on: (custom_offered_ctc > base ? offered : base) × 12
+function amount_in_word_safe(frm) {
+  const toNum = (v) => {
+    if (v === undefined || v === null) return 0;
+    const s = String(v).replace(/[^\d.\-]/g, "");
+    const n = parseFloat(s);
+    return isNaN(n) ? 0 : n;
+  };
+
+  const baseMonthly = toNum(frm.doc.base);
+  const offeredMonthly = toNum(frm.doc.custom_offered_ctc);
+  const monthly = offeredMonthly > baseMonthly ? offeredMonthly : baseMonthly;
+  const annualCTC = (monthly * 12) || 0;
+
+  const existing = frm.doc.custom_total_amount_inr || "";
+
+  if (!annualCTC) {
+    if (existing) frm.set_value("custom_total_amount_inr", "");
+    return;
+  }
+
+  frappe.call({
+    method: "fbts.amount_in_words.get_money_in_words",
+    args: { amount: annualCTC },
+    callback: function (r) {
+      if (r.message && r.message !== existing) {
+        frm.set_value("custom_total_amount_inr", r.message);
+      }
+    }
+  });
+}
+
+function apply_role_restrictions(frm) {
+  const restrictedRole = "Job Applicant";
+  const exemptRole = "HR Manager";
+
+  const isRestricted = frappe.user_roles.includes(restrictedRole);
+  const isExempt = frappe.user_roles.includes(exemptRole);
+
+  if (isRestricted && !isExempt) {
+    const fieldsToToggle = [
+      'job_applicant',
+      'designation',
+      'applicant_name',
+      'offer_date',
+      'company'
+    ];
+    fieldsToToggle.forEach(field => frm.set_df_property(field, 'hidden', 1));
+    frm.remove_custom_button(__('Create Employee'));
+  }
+}

@@ -14,22 +14,26 @@ app_license = "mit"
 fixtures = [
     "Client Script",
     "Print Format",
-    {"dt": "Role", "filters": [["role_name", "=", "Guest"]]}
+    {"dt": "Role", "filters": [["role_name", "in", ["Guest", "Job Applicant","HR Manager"]]]}
 ]
 
 
 
 
+doc_events = {
+    "Job Offer" :{
+        "after_insert": "fbts.job_offer.ensure_user_and_permission",
+        "on_update":"fbts.job_offer.ensure_user_and_permission",
+    }
+}
 
 
 
 
 
-
-
-
-
-
+doctype_js = {
+    "Job Offer" : "public/js/job_offer.js"
+}
 
 
 
