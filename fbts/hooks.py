@@ -8,36 +8,16 @@ app_license = "mit"
 # Apps
 # ------------------
 
-
-
-
 fixtures = [
-    "Client Script",
-    "Print Format",
-    {"dt": "Role", "filters": [["role_name", "in", ["Guest", "Job Applicant","HR Manager"]]]}
-]
-
-
-
-
-doc_events = {
-    "Job Offer" :{
-        "after_insert": "fbts.job_offer.ensure_user_and_permission",
-        "on_update":"fbts.job_offer.ensure_user_and_permission",
+        "Custom Field",
+        "Property Setter",
+	"Server Script",
+	"Client Script",
+           {
+        "doctype": "Print Format",
+        "filters": [["standard", "=", "No"]]
     }
-}
-
-
-
-
-
-doctype_js = {
-    "Job Offer" : "public/js/job_offer.js"
-}
-
-
-
-
+]
 
 
 # required_apps = []
@@ -75,9 +55,7 @@ doctype_js = {
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {
-#     "Job Offer" : "public/js/job_offer.js"
-# }
+# doctype_js = {"doctype" : "public/js/doctype.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
