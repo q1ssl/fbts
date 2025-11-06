@@ -739,7 +739,7 @@
    "insert_after": "salutation",
    "is_system_generated": 0,
    "is_virtual": 0,
-   "label": "VS Code test",
+   "label": "VS Code",
    "length": 0,
    "link_filters": null,
    "mandatory_depends_on": null,
