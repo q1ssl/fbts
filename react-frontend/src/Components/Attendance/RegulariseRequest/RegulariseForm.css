@@ -1,0 +1,439 @@
+.regularise-container {
+  max-width: 800px;
+  font-family: 'Arial', sans-serif;
+}
+
+.form-title {
+  color: #ec4899;
+  margin-bottom: 20px;
+}
+
+.regularise-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.reg-form-row-from-date {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  align-items: center;
+}
+.form-row-from-date {
+  width: 50%;
+  gap: 20px;
+  display: flex;
+  align-items: center;
+}
+.regularise-to-from{
+  width: 50%;
+  display: flex;
+}
+.reg-form-row-from-date label {
+  flex: 1 1 100px;
+  color: #ec4899;
+}
+.reg-form-row-from-date input,
+.reg-form-row-from-date select,
+.remarks-row textarea {
+  flex: 1 1 200px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: #f7f7f7;
+}
+.form-row-from-date input,
+.form-row-from-date select,
+.remarks-row textarea {
+  flex: 1 1 200px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: #f7f7f7;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.form-row label {
+  flex: 1 1 100px;
+  color: #ec4899;
+}
+
+.form-row input,
+.form-row select,
+.remarks-row textarea {
+  flex: 1 1 200px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: #f7f7f7;
+}
+
+.remarks-row textarea {
+  width: 100%;
+  resize: none;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
+.submit-btn {
+  background-color: #0b0b3c;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background: transparent;
+  color: #0b0b3c;
+  padding: 10px 18px;
+  border: none;
+  cursor: pointer;
+}
+
+
+
+
+
+
+/* Status Cards Container */
+.status-cards-container {
+  display: flex;
+  gap: clamp(8px, 2vw, 15px);
+  flex-wrap: wrap;
+  font-family: system-ui, -apple-system, sans-serif;
+  padding: clamp(15px, 3vw, 25px);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Individual Status Card */
+.status-card {
+  background-color: #f9fafb;
+  border: 2px solid #e5e7eb;
+  border-radius: clamp(8px, 1.5vw, 12px);
+  padding: clamp(12px, 2.5vw, 20px) clamp(15px, 3vw, 25px);
+  min-width: clamp(120px, 25vw, 160px);
+  text-align: left;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  flex: 1 1 auto;
+  max-width: 200px;
+}
+
+/* Active Status Card */
+.status-card-active {
+  background-color: #fdf2f8;
+  border-color: #ec4899;
+  box-shadow: 0 4px 12px rgba(236, 72, 153, 0.15);
+}
+
+/* Hover Effects */
+.status-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border-color: #ec4899;
+}
+
+.status-card-active:hover {
+  box-shadow: 0 8px 25px rgba(236, 72, 153, 0.25);
+  transform: translateY(-3px);
+}
+
+/* Status Text */
+.status-text {
+  color: #6b7280;
+  font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+  font-weight: 500;
+  margin-bottom: clamp(6px, 1.5vw, 10px);
+  line-height: 1.4;
+  transition: color 0.3s ease;
+}
+
+.status-card-active .status-text {
+  color: #374151;
+  font-weight: 600;
+}
+
+.status-card:hover .status-text {
+  color: #374151;
+}
+
+/* Status Count Badge */
+.status-count {
+  background-color: #ec4899;
+  color: white;
+  width: clamp(28px, 5vw, 36px);
+  height: clamp(28px, 5vw, 36px);
+  border-radius: clamp(6px, 1vw, 8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  font-weight: 700;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(236, 72, 153, 0.2);
+}
+
+.status-card:hover .status-count {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(236, 72, 153, 0.3);
+}
+
+/* Responsive Design */
+
+/* Large Desktop (1200px+) */
+@media (min-width: 1200px) {
+  .status-cards-container {
+    gap: 18px;
+    padding: 25px 30px;
+  }
+  
+  .status-card {
+    padding: 22px 28px;
+    min-width: 180px;
+    max-width: 220px;
+    border-radius: 14px;
+  }
+  
+  .status-text {
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+  
+  .status-count {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    border-radius: 10px;
+  }
+}
+
+/* Desktop (992px - 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .status-cards-container {
+    gap: 15px;
+    padding: 22px 25px;
+  }
+  
+  .status-card {
+    padding: 18px 22px;
+    min-width: 160px;
+    max-width: 200px;
+  }
+  
+  .status-text {
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+  }
+  
+  .status-count {
+    width: 36px;
+    height: 36px;
+    font-size: 1.1rem;
+  }
+}
+
+/* Tablet Landscape (768px - 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .status-cards-container {
+    gap: 12px;
+    padding: 20px;
+  }
+  
+  .status-card {
+    padding: 15px 18px;
+    min-width: 140px;
+    max-width: 180px;
+  }
+  
+  .status-text {
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+  }
+  
+  .status-count {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+}
+
+/* Tablet Portrait (576px - 767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+  .status-cards-container {
+    gap: 10px;
+    padding: 18px;
+  }
+  
+  .status-card {
+    padding: 12px 15px;
+    min-width: 120px;
+    flex: 1 1 calc(50% - 5px);
+    max-width: none;
+  }
+  
+  .status-text {
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+  }
+  
+  .status-count {
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+  }
+}
+
+/* Mobile (320px - 575px) */
+@media (max-width: 575px) {
+  .status-cards-container {
+    gap: 8px;
+    padding: 15px;
+    flex-direction: column;
+  }
+  
+  .status-card {
+    padding: 10px 12px;
+    min-width: 100%;
+    max-width: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+  }
+  
+  .status-text {
+    font-size: 0.8rem;
+    margin-bottom: 0;
+    flex: 1;
+  }
+  
+  .status-count {
+    width: 28px;
+    height: 28px;
+    font-size: 0.85rem;
+    border-radius: 6px;
+    margin-left: 10px;
+  }
+}
+
+/* Extra Small Mobile (up to 360px) */
+@media (max-width: 360px) {
+  .status-cards-container {
+    padding: 12px;
+    gap: 6px;
+  }
+  
+  .status-card {
+    padding: 8px 10px;
+    border-radius: 8px;
+  }
+  
+  .status-text {
+    font-size: 0.75rem;
+  }
+  
+  .status-count {
+    width: 26px;
+    height: 26px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Focus States for Accessibility */
+.status-card:focus {
+  outline: 3px solid rgba(236, 72, 153, 0.5);
+  outline-offset: 2px;
+}
+
+/* High DPI Display Support */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .status-card {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Dark Mode Support */
+/* @media (prefers-color-scheme: dark) {
+  .status-card {
+    background-color: #374151;
+    border-color: #4b5563;
+  }
+  
+  .status-card-active {
+    background-color: #4c1d95;
+    border-color: #f472b6;
+  }
+  
+  .status-text {
+    color: #d1d5db;
+  }
+  
+  .status-card-active .status-text {
+    color: #f9fafb;
+  }
+  
+  .status-count {
+    background-color: #f472b6;
+  }
+} */
+
+/* Print Styles */
+@media print {
+  .status-cards-container {
+    flex-direction: row;
+    gap: 10px;
+    padding: 0;
+  }
+  
+  .status-card {
+    background-color: white !important;
+    border: 1px solid #000 !important;
+    padding: 10px !important;
+    min-width: 120px;
+  }
+  
+  .status-text {
+    color: #000 !important;
+  }
+  
+  .status-count {
+    background-color: #000 !important;
+    color: white !important;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .status-card {
+    transition: none;
+  }
+  
+  .status-card:hover {
+    transform: none;
+  }
+  
+  .status-count {
+    transition: none;
+  }
+  
+  .status-card:hover .status-count {
+    transform: none;
+  }
+}
