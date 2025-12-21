@@ -1,0 +1,74 @@
+{
+  "attendance": [
+    {
+      "date": "2025-07-31",
+      "in_time": "16:40:06",
+      "out_time": "22:59:03",
+      "duration": "06:18:57",
+      "status": "Present"
+    },
+    {
+      "date": "2025-07-30",
+      "in_time": "15:23:01",
+      "out_time": "15:23:09",
+      "duration": "00:00:08",
+      "status": "Present"
+    },
+    {
+      "date": "2025-07-29",
+      "in_time": "08:49:29",
+      "out_time": "16:50:07",
+      "duration": "08:00:38",
+      "status": "Present"
+    },
+    {
+      "date": "2025-07-28",
+      "in_time": "10:50:43",
+      "out_time": "21:51:49",
+      "duration": "11:01:06",
+      "status": "Present"
+    },
+    {
+      "date": "2025-07-23",
+      "in_time": null,
+      "out_time": "13:32:58",
+      "duration": null,
+      "status": "Absent"
+    },
+    {
+      "date": "2025-07-20",
+      "in_time": "19:50:07",
+      "out_time": null,
+      "duration": null,
+      "status": "Present"
+    },
+    {
+      "date": "2025-07-16",
+      "in_time": "05:43:34",
+      "out_time": "10:36:21",
+      "duration": "04:52:47",
+      "status": "Present"
+    },
+    {
+      "date": "2025-07-15",
+      "in_time": "23:45:57",
+      "out_time": "23:49:51",
+      "duration": "00:03:54",
+      "status": "Present"
+    },
+    {
+      "date": "2025-07-14",
+      "in_time": "21:19:54",
+      "out_time": null,
+      "duration": null,
+      "status": "Present"
+    },
+    {
+      "date": "2025-07-13",
+      "in_time": "11:37:58",
+      "out_time": "19:37:43",
+      "duration": "07:59:45",
+      "status": "Present"
+    }
+  ]
+}

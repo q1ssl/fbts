@@ -1,0 +1,138 @@
+.itcomputation-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 1rem;
+  background: #fafafa; /* very light pink background */
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.itcomputation-card {
+  background: #fff;
+  max-width: 600px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 16px 32px rgba(198, 39, 119, 0.15); /* subtle pink shadow */
+  padding: 2.5rem 3rem;
+  color: #4a235a; /* dark purple for text */
+}
+
+.itcomputation-card h2 {
+  text-align: center;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  letter-spacing: 0.05em;
+  color: #c62777; /* main pink heading */
+}
+
+.form-group {
+  margin-bottom: 1.6rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.6rem;
+  color: #7a2e59; /* deep pink */
+}
+
+select,
+input[type="number"] {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  border: 1.5px solid; /* soft pink border */
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
+  color: #4a235a;
+ 
+}
+
+select:focus,
+input[type="number"]:focus {
+  border-color: #d6347f; /* bright pink focus */
+  box-shadow: 0 0 8px rgba(214, 52, 127, 0.3);
+  
+}
+
+.deduction-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.deduction-row span {
+  font-size: 0.95rem;
+  color: #7a2e59;
+  flex: 1;
+}
+
+.deduction-row input {
+  flex-basis: 35%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  border: 1.5px solid #f4c1d1;
+  font-size: 1rem;
+  color: #4a235a;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.deduction-row input:focus {
+  border-color: #d6347f;
+  box-shadow: 0 0 8px rgba(214, 52, 127, 0.3);
+}
+
+.action-group {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+button {
+  background: #d6347f; /* bright pink button */
+  border: none;
+  padding: 0.75rem 3rem;
+  font-size: 1.1rem;
+  color: #fff;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  /* box-shadow: 0 6px 12px rgba(214, 52, 127, 0.4); */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+  background: #b42a69; /* darker pink on hover */
+  /* box-shadow: 0 8px 20px rgba(180, 42, 105, 0.6); */
+}
+
+.result-section {
+  margin-top: 2.5rem;
+  padding: 1.8rem 2.2rem;
+  background: #fff0f6; /* very light pink */
+  border-radius: 10px;
+  box-shadow: inset 0 0 10px #f4c1d1;
+}
+
+.result-section h3 {
+  font-size: 1.4rem;
+  color: #7a2e59;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  border-bottom: 2px solid #d6347f;
+  padding-bottom: 0.3rem;
+}
+
+.result-section p {
+  font-size: 1.1rem;
+  color: #7a2e59;
+  margin: 0.5rem 0;
+  font-weight: 600;
+}
+
+.result-section p strong {
+  color: #d6347f;
+}

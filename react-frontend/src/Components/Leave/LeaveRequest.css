@@ -1,0 +1,442 @@
+/* Base Container - Exact Design Match */
+.Leave-request-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px;
+  display: flex;
+  gap: 30px;
+  font-family: "Segoe UI", sans-serif;
+  box-sizing: border-box;
+  background-color: #fafafa;
+}
+
+/* Form Section - Left Side */
+.Leave-request-form {
+  flex: 1;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Row One - Three Column Layout */
+.Leave-request-row-one-line {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.Leave-request-row-one-line > div {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Row Two - Two Column Layout */
+.Leave-request-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.Leave-request-row > div {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Labels */
+.Leave-request-row-one-line label,
+.Leave-request-row label {
+  color: #ec4899;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 8px;
+  text-transform: capitalize;
+}
+
+/* Input Fields */
+.Leave-request-row-one-line input,
+.Leave-request-row-one-line select,
+.Leave-request-row input {
+  padding: 12px 16px;
+  border: 2px solid #e5e7eb;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #6b7280;
+  height: 48px;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.Leave-request-row-one-line input:focus,
+.Leave-request-row-one-line select:focus,
+.Leave-request-row input:focus {
+  outline: none;
+  border-color: #ec4899;
+  background-color: white;
+  color: #374151;
+}
+
+/* Date Input Placeholder Styling */
+.Leave-request-row-one-line input[type="date"] {
+  color: #9ca3af;
+  position: relative;
+}
+
+.Leave-request-row-one-line input[type="date"]:focus,
+.Leave-request-row-one-line input[type="date"]:valid {
+  color: #374151;
+}
+
+.Leave-request-row-one-line input[type="date"]::-webkit-calendar-picker-indicator {
+  color: #6b7280;
+  background: none;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+/* Select Dropdown */
+.Leave-request-row-one-line select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+.Leave-request-row-one-line select:focus {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ec4899' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+}
+
+/* Number and Text Inputs */
+.Leave-request-row input[type="number"],
+.Leave-request-row input[type="text"] {
+  color: #6b7280;
+}
+
+.Leave-request-row input[type="number"]:focus,
+.Leave-request-row input[type="text"]:focus {
+  color: #374151;
+}
+
+/* Remove number input arrows */
+.Leave-request-row input[type="number"]::-webkit-outer-spin-button,
+.Leave-request-row input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.Leave-request-row input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* HR Divider */
+hr {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 25px 0;
+}
+
+/* Actions Section */
+.Leave-request-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
+
+/* Add Button */
+.Leave-request-add-btn {
+  background-color: #1e293b;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.Leave-request-add-btn:hover {
+  background-color: #0f172a;
+  transform: translateY(-1px);
+}
+
+.Leave-request-plus {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* Button Group */
+.Leave-request-btns {
+  display: flex;
+  gap: 12px;
+}
+
+/* Cancel Button */
+.Leave-request-cancel {
+  background: transparent;
+  border: 2px solid #1e293b;
+  color: #1e293b;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.Leave-request-cancel:hover {
+  background-color: #1e293b;
+  color: white;
+}
+
+/* Submit Button */
+.Leave-request-submit {
+  background-color: #1e293b;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.Leave-request-submit:hover {
+  background-color: #0f172a;
+  transform: translateY(-1px);
+}
+
+/* Balance Section - Right Sidebar */
+.Leave-request-balance-boxes {
+  flex: 0 0 300px;
+  align-self: flex-start;
+}
+
+/* Balance Table */
+.Leave-request-box {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: white;
+}
+
+.Leave-request-box th {
+  background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
+  color: white;
+  padding: 16px 20px;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: left;
+  border: none;
+}
+
+.Leave-request-box th:first-child {
+  width: 70%;
+}
+
+.Leave-request-box th:last-child {
+  width: 30%;
+  text-align: center;
+}
+
+.Leave-request-box td {
+  padding: 16px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  background: #fdf2f8;
+  border: none;
+  border-bottom: 1px solid rgba(236, 72, 153, 0.1);
+}
+
+.Leave-request-box td:last-child {
+  text-align: center;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.Leave-request-box tr:last-child td {
+  border-bottom: none;
+}
+
+.Leave-request-box tbody tr:hover {
+  background: rgba(236, 72, 153, 0.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .Leave-request-container {
+    flex-direction: column;
+    padding: 15px;
+    gap: 20px;
+  }
+  
+  .Leave-request-form {
+    padding: 20px;
+  }
+  
+  .Leave-request-row-one-line {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+  
+  .Leave-request-row-one-line > div:last-child {
+    grid-column: 1 / -1;
+  }
+  
+  .Leave-request-row {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .Leave-request-balance-boxes {
+    flex: none;
+    width: 100%;
+  }
+  
+  .Leave-request-actions {
+    flex-direction: column;
+    gap: 15px;
+    align-items: stretch;
+  }
+  
+  .Leave-request-add-btn {
+    justify-content: center;
+  }
+  
+  .Leave-request-btns {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .Leave-request-row-one-line {
+    grid-template-columns: 1fr;
+  }
+  
+  .Leave-request-row-one-line > div:last-child {
+    grid-column: auto;
+  }
+  
+  .Leave-request-btns {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .Leave-request-cancel,
+  .Leave-request-submit {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .Leave-request-box th,
+  .Leave-request-box td {
+    padding: 12px 15px;
+    font-size: 13px;
+  }
+}
+
+/* Focus States for Accessibility */
+.Leave-request-add-btn:focus,
+.Leave-request-cancel:focus,
+.Leave-request-submit:focus {
+  outline: 3px solid rgba(236, 72, 153, 0.5);
+  outline-offset: 2px;
+}
+
+.Leave-request-row-one-line input:focus,
+.Leave-request-row-one-line select:focus,
+.Leave-request-row input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.2);
+}
+
+
+
+
+/* Error message styling */
+.error-message {
+  color: #ff4444;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+  font-weight: 500;
+}
+
+/* Remove leave button container */
+.remove-leave-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+/* Remove leave button styling */
+.remove-leave-btn {
+  background-color: #ff4444;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.2s ease;
+}
+
+.remove-leave-btn:hover {
+  background-color: #cc3333;
+}
+
+.remove-leave-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Disabled button styles */
+.Leave-request-submit:disabled,
+.Leave-request-cancel:disabled,
+.Leave-request-add-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Loading state for submit button */
+.Leave-request-submit:disabled {
+  background-color: #cccccc;
+}
+
+/* Form field styling improvements */
+.Leave-request-row-one-line > div,
+.Leave-request-row > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.Leave-request-row-one-line input,
+.Leave-request-row-one-line select,
+.Leave-request-row input,
+.Leave-request-row select {
+  margin-top: 4px;
+}
+
+/* Responsive error messages */
+@media (max-width: 768px) {
+  .error-message {
+    font-size: 11px;
+  }
+}
