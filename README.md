@@ -70,3 +70,6 @@ bench --site your-site-name.com install-app hrms
 ```bash
 bench start
 ```
+
+## Latest Update
+Testing staging vs production deployment - Sun Dec 21 18:36:46 IST 2025
