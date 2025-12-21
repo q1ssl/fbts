@@ -45,3 +45,22 @@ bench --site nest.q1ssl.com restore [backup-file]
 
 ---
 Last Updated: December 21, 2024
+
+## Custom HRMS Configuration
+
+### Job Offer Customization
+The HRMS Job Offer DocType has been customized with salary structure fields:
+- Salary Structure Tab
+- Grade, Salary Structure, Base, Level
+- Earnings and Deductions tables
+
+**Location:** `apps/hrms/hrms/hr/doctype/job_offer/job_offer.json`
+
+**Deployment Note:** 
+When deploying to new sites, the customized job_offer.json must be present in the HRMS app. The backup is stored at:
+- Local: `~/job_offer_custom_backup.json`
+- Should be version controlled separately
+
+**Future Improvement:**
+This customization should be converted to Custom Fields in the FBTS app for better Git tracking and deployment automation.
+
